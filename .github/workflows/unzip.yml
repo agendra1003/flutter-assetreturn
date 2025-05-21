@@ -21,6 +21,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "Extract Flutter app from ZIP" || echo "No changes to commit"
-          git push
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Extracted Flutter app from ZIP"
+            git push
+          fi
