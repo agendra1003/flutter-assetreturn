@@ -1,0 +1,26 @@
+name: Unzip Flutter App
+
+on:
+  push:
+    paths:
+      - '**.zip'
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Unzip Flutter app
+        run: |
+          unzip -o *.zip -d .
+          rm *.zip
+
+      - name: Commit extracted files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Extract Flutter app from ZIP" || echo "No changes to commit"
+          git push
