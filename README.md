@@ -1,1 +1,1 @@
-flutter asset compare app
+flutter asset class compare app
